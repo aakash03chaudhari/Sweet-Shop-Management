@@ -1,0 +1,24 @@
+package com.cognizant.sweetitemservice;
+
+import org.junit.Before;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import com.cognizant.sweetitemservice.dao.SweetItemDao;
+import com.cognizant.sweetitemservice.service.SweetItemServiceImpl;
+
+public class TestSweetItemService {
+
+	@InjectMocks
+	SweetItemServiceImpl sweetItemServiceImpl;
+	
+	@Mock
+	SweetItemDao sweetItemServiceDao;
+	
+	@Before
+	public void init()
+	{
+		MockitoAnnotations.initMocks(this);
+	}
+}

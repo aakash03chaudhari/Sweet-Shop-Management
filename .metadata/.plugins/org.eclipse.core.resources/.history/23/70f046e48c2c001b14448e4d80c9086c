@@ -1,0 +1,5 @@
+package com.cognizant.zuulgatewayservice.models;
+
+public class JwtConfig {
+
+}

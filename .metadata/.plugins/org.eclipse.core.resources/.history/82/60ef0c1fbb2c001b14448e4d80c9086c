@@ -1,0 +1,25 @@
+package com.cognizant.sweetitemservice;
+
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import com.cognizant.sweetitemservice.dao.SweetItemDaoImpl;
+import com.cognizant.sweetitemservice.model.SweetItem;
+import com.cognizant.sweetitemservice.service.SweetItemServiceImpl;
+
+
+public class TestSweetItemService {
+
+	
+	
+}

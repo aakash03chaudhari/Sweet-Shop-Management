@@ -1,0 +1,13 @@
+package com.cognizant.cartservice.fallback;
+
+import org.springframework.stereotype.Component;
+
+
+@Component
+public class SweetItemFallBack{
+
+	public String status()
+	{
+		return "SweetItem service is down";
+	}
+}

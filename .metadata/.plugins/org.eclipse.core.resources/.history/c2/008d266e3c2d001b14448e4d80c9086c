@@ -1,0 +1,24 @@
+package com.cognizant.sweetitemservice.exception;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+	 @ExceptionHandler(ConstraintViolationException.class)
+	  public String handleConstraintViolationExceptions(
+	      ConstraintViolationException ex) {
+	    String exceptionResponse = String.format("Invalid input parameters: %s\n", ex.getMessage());
+	    return exceptionResponse;
+	  }
+	 
+	@ExceptionHandler(SweetItemNotFoundException.class)
+	public String handleSweetItemNotFoundException(SweetItemNotFoundException e,HttpServletResponse response)
+	{
+		return "Sweet Item Not Found";
+	}
+}

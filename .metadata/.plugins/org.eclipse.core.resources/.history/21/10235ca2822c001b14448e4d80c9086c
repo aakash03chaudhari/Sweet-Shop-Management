@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: sweetitem-service
+server:
+  port: 8765
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    preferIpAddress: true

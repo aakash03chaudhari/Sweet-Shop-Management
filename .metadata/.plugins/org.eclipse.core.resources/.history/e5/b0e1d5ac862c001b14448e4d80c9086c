@@ -1,0 +1,5 @@
+package com.cognizant.authenticationservice.security;
+
+public class UserDetailsServiceImpl {
+
+}

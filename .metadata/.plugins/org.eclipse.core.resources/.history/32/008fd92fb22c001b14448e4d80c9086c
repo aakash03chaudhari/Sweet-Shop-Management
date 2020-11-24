@@ -1,0 +1,23 @@
+package com.cognizant.sweetitemservice;
+
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import com.cognizant.sweetitemservice.dao.SweetItemDaoImpl;
+import com.cognizant.sweetitemservice.repository.SweetItemRepository;
+import com.cognizant.sweetitemservice.service.SweetItemServiceImpl;
+
+@ExtendWith(MockitoExtension.class)
+public class TestSweetItemService {
+
+	// @Mock : because on SweetItemServiceDaoImpl have dependency to SWeetItemRepository,
+	// we create mock object to simulate behaviour of the real object.
+	@Mock
+	private SweetItemRepository sweetItemRepository;
+
+	@InjectMocks
+	private SweetItemDaoImpl sweetItemDaoImpl;
+
+}

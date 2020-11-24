@@ -1,0 +1,113 @@
+package com.cognizant.sweetitemservice.dao;
+
+import java.util.Iterator;
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.cognizant.sweetitemservice.exception.SweetItemNotFoundException;
+import com.cognizant.sweetitemservice.model.SweetItem;
+import com.cognizant.sweetitemservice.repository.SweetItemRepository;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Service
+@Transactional
+public class SweetItemDaoImpl implements SweetItemDao {
+
+	// Reference is used to retrieve SweetItem Data from Database
+	@Autowired
+	SweetItemRepository sweetItemRepository;
+
+	@Override
+	public List<SweetItem> getSweetItemListAdmin() {
+
+		log.info("SweetItemDaoImpl public List<SweetItem> getSweetItemListAdmin() START");
+
+		// Gives list of all SweetItems
+		List<SweetItem> sweetItemListAdmin = sweetItemRepository.findAll();
+
+		log.debug("SweetItemListAdmin: {}", sweetItemListAdmin);
+		log.info("SweetItemDaoImpl public List<SweetItem> getSweetItemListAdmin()  END");
+		return sweetItemListAdmin;
+	}
+
+	@Override
+	public List<SweetItem> getSweetItemListCustomer() {
+		log.info("SweetItemDaoImpl public List<SweetItem> getSweetItemListCustomer() START");
+		List<SweetItem> sweetItemListCustomer = sweetItemRepository.findAll();
+		Iterator<SweetItem> sweetItemListIterator = sweetItemListCustomer.iterator();
+
+		// Gives list of all active SweetItems
+		while (sweetItemListIterator.hasNext()) {
+			SweetItem sweetItem = (SweetItem) sweetItemListIterator.next();
+			if (!sweetItem.isActive()) {
+				sweetItemListIterator.remove();
+			}
+		}
+		log.debug("SweetItemListCustomer: {}", sweetItemListCustomer);
+		log.info("SweetItemDaoImpl public List<SweetItem> getSweetItemListCustomer()  END");
+		return sweetItemListCustomer;
+	}
+
+	@Override
+	public SweetItem modifySweetItem(int sweetItemId, SweetItem sweetItem) {
+		log.info("public void modifySweetItem(SweetItem sweetItem) START");
+		SweetItem sweetItemFound = sweetItemRepository.findById(sweetItemId).orElseThrow(() -> {
+			throw new SweetItemNotFoundException();
+		});
+
+		sweetItemFound.setName(sweetItem.getName());
+		sweetItemFound.setPrice(sweetItem.getPrice());
+		sweetItemFound.setActive(sweetItem.isActive());
+		sweetItemFound.setDateOfLaunch(sweetItem.getDateOfLaunch());
+		sweetItemFound.setFreeDelivery(sweetItem.isFreeDelivery());
+
+		log.info("public void modifysweetItem(SweetItem sweetItem)  END");
+		return sweetItemFound;
+
+	}
+
+	@Override
+	public SweetItem getSweetItem(int sweetItemId) {
+		log.info("public SweetItem getSweetItem(int sweetItemId) START");
+
+		SweetItem sweetItemFound = sweetItemRepository.findById(sweetItemId).orElseThrow(() -> {
+			throw new SweetItemNotFoundException();
+		});
+
+		log.debug("SweetItemFound : {}", sweetItemFound);
+		log.info("public SweetItem getSweetItem(int sweetItemId)  END");
+		return sweetItemFound;
+	}
+
+	@Override
+	public SweetItem addSweetItem(SweetItem sweetItem) {
+		log.info("public void addSweetItem(SweetItem sweetItem) START");
+
+		sweetItemRepository.save(sweetItem);
+
+		log.debug("MenuItem : {}", sweetItem);
+		log.info("public void addsweetItem(SweetItem sweetItem)  END");
+		
+		return sweetItem;
+	}
+
+	@Override
+	public SweetItem removeSweetItem(int sweetItemId) {
+		log.info("public void removeSweetItem(int sweetItemId, SweetItem sweetItem) START");
+		SweetItem sweetItem = sweetItemRepository.getOne(sweetItemId);
+		if(sweetItem==null)
+		{
+			throw new SweetItemNotFoundException();
+		}
+		sweetItemRepository.delete(sweetItem);
+		log.info("public void removeSweetItem(int sweetItemId, SweetItem sweetItem)  END");
+		return sweetItem;
+	}
+
+}

@@ -1,0 +1,63 @@
+package com.cognizant.sweetitemservice;
+
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
+import java.sql.Date;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.cognizant.sweetitemservice.dao.SweetItemDaoImpl;
+import com.cognizant.sweetitemservice.model.SweetItem;
+import com.cognizant.sweetitemservice.service.SweetItemServiceImpl;
+
+@SpringBootTest
+class SweetitemServiceApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+
+	// @Mock : because on SweetItemServiceDaoImpl have dependency to SWeetItemRepository,
+		// we create mock object to simulate behaviour of the real object.
+		@Mock
+		SweetItemDaoImpl sweetItemDaoImpl;
+
+		//@InjectMock : is create Object to inject mock dependency, 
+		//because on this case we simulate about SweetItemDaoImpl,
+		//so we create @InjectMock based on SweetItemDaoImpl.
+		@InjectMocks
+		SweetItemServiceImpl sweetItemServiceImpl;
+
+		public void init()
+		{
+			MockitoAnnotations.initMocks(this);
+		}
+		@Test
+		public void addSweetItemAdminTest()
+		{
+			SweetItem sweetItem1 = new SweetItem(1,"Jalebi",(float)120,true,new Date(01/01/2020),false);
+			sweetItemServiceImpl.addSweetItem(sweetItem1);
+			verify(sweetItemDaoImpl,times(1)).addSweetItem(sweetItem1);
+		}
+		
+//		@Test
+//		public void getSweetItemListAdminTest()
+//		{
+//			List<SweetItem> sweetItemListAdmin = new ArrayList<SweetItem>();
+//			SweetItem sweetItem1 = new SweetItem(1,"Jalebi",(float)120,true,new Date(01/01/2020),false);
+//			SweetItem sweetItem2 = new SweetItem(2,"Kaju Katli",(float)300,true,new Date(02/05/1999),true);
+//			SweetItem sweetItem3 = new SweetItem(3,"Rasmali",(float)350,true,new Date(05/07/2002),true);
+//			
+//			sweetItemListAdmin.add(sweetItem1);
+//			sweetItemListAdmin.add(sweetItem2);
+//			sweetItemListAdmin.add(sweetItem3);
+//			
+//			when(sweetItemDaoImpl.getSweetItemListAdmin()).thenReturn(sweetItemListAdmin);
+//		}
+}

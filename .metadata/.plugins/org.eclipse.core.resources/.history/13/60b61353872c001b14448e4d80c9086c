@@ -1,0 +1,5 @@
+package com.cognizant.authenticationservice.models;
+
+public class JwtConfig {
+
+}

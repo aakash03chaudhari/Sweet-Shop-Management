@@ -1,0 +1,23 @@
+package com.cognizant.cartservice.exception;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+	@ExceptionHandler(SweetItemNotFoundException.class)
+	public String handleSweetItemNotFoundException(SweetItemNotFoundException e,HttpServletResponse response)
+	{
+		
+		return "Sweet Item Not Found";
+	}
+	
+	@ExceptionHandler(CartNotFoundException.class)
+	public String handleCartNotFoundException(CartNotFoundException e,HttpServletResponse response)
+	{
+		return "Cart Not Found";
+	}
+}

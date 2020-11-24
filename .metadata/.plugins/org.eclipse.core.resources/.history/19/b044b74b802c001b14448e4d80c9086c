@@ -1,0 +1,5 @@
+package com.cognizant.sweetitemservice.controller;
+
+public class SweetItemServiceController {
+
+}

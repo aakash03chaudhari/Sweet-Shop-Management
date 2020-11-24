@@ -1,0 +1,25 @@
+package com.cognizant.sweetitemservice.exception;
+
+import javax.servlet.http.HttpServletResponse;
+
+
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+	 
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public String handleMethodArgumentNotValidException(MethodArgumentNotValidException e,HttpServletResponse response)
+	{
+		return "Please provide valid inputs. \n"+ e.getMessage() ;
+	}
+	
+	@ExceptionHandler(SweetItemNotFoundException.class)
+	public String handleSweetItemNotFoundException(SweetItemNotFoundException e,HttpServletResponse response)
+	{
+		return "Sweet Item Not Found";
+	}
+}

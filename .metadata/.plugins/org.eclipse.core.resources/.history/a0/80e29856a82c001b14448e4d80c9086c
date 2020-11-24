@@ -1,0 +1,16 @@
+package com.cognizant.sweetitemservice;
+
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+
+import com.cognizant.sweetitemservice.dao.SweetItemDao;
+import com.cognizant.sweetitemservice.service.SweetItemServiceImpl;
+
+public class TestSweetItemService {
+
+	@InjectMocks
+	SweetItemServiceImpl sweetItemServiceImpl;
+	
+	@Mock
+	SweetItemDao sweetItemServiceDao;
+}

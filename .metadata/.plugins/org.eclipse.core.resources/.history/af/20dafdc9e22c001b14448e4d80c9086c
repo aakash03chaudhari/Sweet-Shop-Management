@@ -1,0 +1,5 @@
+package com.cognizant.sweetitemservice.exception;
+
+public class GlobalExceptionHandler {
+
+}

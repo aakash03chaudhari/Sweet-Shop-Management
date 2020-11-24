@@ -1,0 +1,5 @@
+package com.cognizant.zuulgatewayservice.security;
+
+public class SecurityTokenConfig {
+
+}

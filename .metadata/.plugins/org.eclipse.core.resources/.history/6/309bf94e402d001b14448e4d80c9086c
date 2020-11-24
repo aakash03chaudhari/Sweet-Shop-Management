@@ -1,0 +1,28 @@
+package com.cognizant.sweetitemservice.exception;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.TransactionSystemException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.bind.support.WebExchangeBindException;
+
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+	
+	
+	@ExceptionHandler(WebExchangeBindException.class)
+	public final ResponseEntity<Object> handleConstraintViolationExceptions(ConstraintViolationException ex) {
+		String exceptionResponse = String.format("Invalid input parameters: %s\n", ex.getMessage());
+		return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(SweetItemNotFoundException.class)
+	public String handleSweetItemNotFoundException(SweetItemNotFoundException e, HttpServletResponse response) {
+		return "Sweet Item Not Found";
+	}
+}
